@@ -46,4 +46,129 @@ $(function(){
 	$(".close").click(function(){
 		$(".forgetM_alert").css("display","none");
 	});
+
+	//登录后端验证
+	var usernum = 1;
+	var passnum = 1;
+	$(".login_input_zhang").blur(function(){
+		let n = $(".login_input_zhang").val();
+		if(n==""){
+			$(".push_zhang").css("visibility","visible");
+			usernum = 0;
+		}else{
+			usernum = 1;
+		}
+	})
+	
+	$(".login_input_mi").blur(function(){
+		let n = $(".login_input_mi").val();
+		if(n==""){
+			$(".push_mi").css("visibility","visible");
+			passnum = 0;
+		}else{
+			passnum = 1;
+		}
+	})
+	
+	$(".login_sub1").click(function(){
+		if(usernum == 1 && passnum == 1 ){
+			$.ajax({
+				"type":"POST",
+				"url":"php/loginCheck.php",
+				"data":{"userphone":$(".login_input_zhang").val(),
+						"userpass":$(".login_input_mi").val()},
+				success: function (data) { //返回json结果
+					if(data=="1"){
+					//保存cookie
+						// addCookie("userphone",$(".login_input_zhang").val(),7);
+						//location.href="index.html";
+						window.location.href="http://127.0.0.1/BOLON/index.html"
+						alert("登录成功");
+					}else{
+						alert("用户名或密码错误");
+						$(".login_input_zhang").val("")
+						$(".login_input_mi").val("")
+				   	}
+				}
+			})
+			
+		}else{
+			alert("信息输入错误，请重新输入");
+		}
+	})
 })
+//注册后端验证
+$(function(){
+	let usernum = 0;
+	let psw = 0;
+	let pswes = 0;
+	//验证用户名是否存在
+	$(".reg_phone").blur(function(){
+		// let reg = /^[a-z0-9_-]{3,16}$/;
+		// let v = $(".reg_phone").val();
+		// if(!reg.test(v)){
+		// 	alert("请输入正确的手机号");
+		// 	usernum = 0;
+		// }else{
+				$.get(
+					"php/checkUser.php",
+					{
+						"userphone":$(".reg_phone").val()	
+					},
+					function(data){
+						if(data=="1"){
+							alert("该手机号可以使用");
+							usernum = 1;
+						}else{
+							alert("该手机号已注册");
+							usernum = 0;
+							
+						}
+					}				
+				);
+		// }
+	});
+	$(".reg_passw").blur(function(){
+		let reg = /^[a-z0-9_-]{6,18}$/;
+		let v = $(".reg_passw").val();
+		if(!reg.test(v)){
+			alert("密码不符合规定");
+			psw = 0;
+		}else{
+			psw = 1;
+		}
+	})
+	$(".reg_passw2").blur(function(){
+		let v = $(".reg_passw").val();
+		let s = $(".reg_passw2").val();
+		
+		if(v==""){
+			alert("密码不能为空");
+			pswes = 0;
+		}else if(psw==0){
+			alert("密码格式不对");
+		}else if(v!=s){
+			alert("两次输入密码不一致");
+			pswes = 0;
+		}else if(v==s){
+			pswes = 1;
+		}
+	})
+	$(".mi_a").click(function(){
+		if(usernum == 1 && psw == 1 && pswes == 1){
+			$.ajax({
+				"type":"POST",
+				"url":"php/regSave.php",
+				"data":{"userphone":$(".reg_phone").val(),
+				"userpass":$(".reg_passw").val()},
+				success: function (data) { //返回json结果
+				alert(data);
+				}
+			})
+			window.location.href="http://127.0.0.1/BOLON/login.html"
+		}else if($(".reg_passw").val()==""){
+			alert("密码不能为空");
+		}
+		
+	})
+});
