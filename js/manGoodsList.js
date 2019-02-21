@@ -130,3 +130,61 @@ $(function(){
 		}
 	});
 });
+//动态添加商品列表
+function showList(objs){
+    let htmlStr="";
+    for(let i in objs){
+        htmlStr+=`<li class="yan_list">
+					<dl class="main click_toggle">
+						<div class="opacity">
+							<img src="${objs[i].goodsImg}" alt="">
+							<h3>${objs[i].goodsName}</h3>
+							<h3>RMB ${objs[i].goodsPrice}</h3>
+						</div>
+						<dd class="toggle show" index="0">
+							<a href="goodsDetails.html">
+								<img src="${objs[i].goodsImg}" alt="">
+								<h3>${objs[i].goodsName}</h3>
+								<h3>RMB ${objs[i].goodsPrice}</h3>
+							</a>
+						</dd>
+						<dd class="toggle" index="1">
+							<a href="goodsDetails.html">
+								<img src="${objs[i].goodsImg}" alt="">
+								<h3>${objs[i].goodsName}</h3>
+								<h3>RMB ${objs[i].goodsPrice}</h3>
+							</a>
+						</dd>
+						<dd class="toggle" index="2">
+							<a href="goodsDetails.html">
+								<img src="${objs[i].goodsImg}" alt="">
+								<h3>${objs[i].goodsName}</h3>
+								<h3>RMB ${objs[i].goodsPrice}</h3>
+							</a>
+						</dd>
+						<dd class="toggle" index="3">
+							<a href="goodsDetails.html">
+								<img src="${objs[i].goodsImg}" alt="">
+								<h3>${objs[i].goodsName}</h3>
+								<h3>RMB ${objs[i].goodsPrice}</h3>
+							</a>
+						</dd>
+					</dl>
+					<div class="main diandian">
+						<b class="dian_toggle"></b>
+						<a class="dian" index="0" href="javascript:;"></a>
+						<a class="dian" index="1" href="javascript:;"></a>
+						<a class="dian" index="2" href="javascript:;"></a>
+						<a class="dian" index="3" href="javascript:;"></a>
+						<b class="dian_toggle2"></b>
+					</div>
+				</li>`;
+    }
+
+    $(".goodsList").html(htmlStr);
+}    
+
+$(function(){
+    $.get("getGoodsList.php",showList,"json");    
+       
+})
