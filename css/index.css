@@ -101,6 +101,11 @@ a{
 	color: #161618;
 	font-size: 15px;
 }
+.login span{
+	display: none;
+	font-size: 15px;
+	color: #161618;
+}
 /*logo*/
 .logo{
 	margin-top: 42px;

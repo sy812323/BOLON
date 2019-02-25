@@ -2,6 +2,7 @@ $(function(){
 	$(".gou a").toggle(
 		function(){
 			$(".gou a").css({"background-image":"url(img/dui1.png)","background-size":"100%"});
+			
 		},
 		function(){
 			$(".gou a").css({"background-image":"","background-size":""});
@@ -76,15 +77,20 @@ $(function(){
 		if(usernum == 1 && passnum == 1 ){
 			$.ajax({
 				"type":"POST",
-				"url":"php/loginCheck.php",
+				"url":"loginCheck.php",
 				"data":{"userphone":$(".login_input_zhang").val(),
 						"userpass":$(".login_input_mi").val()},
 				success: function (data) { //返回json结果
 					if(data=="1"){
 					//保存cookie
-						// addCookie("userphone",$(".login_input_zhang").val(),7);
-						//location.href="index.html";
-						window.location.href="http://127.0.0.1/BOLON/index.html"
+						if($(".gou a").attr("background-image","url(img/dui1.png)")){
+							var d = new Date();
+							d.setDate(d.getDate()+7);
+							document.cookie = "userphone="+$(".login_input_zhang").val()+";expires="+d.toGMTString();
+							document.cookie = "userpass="+$(".login_input_mi").val()+";expires="+d.toGMTString();
+
+						}
+						window.location.href="index.html"
 						alert("登录成功");
 					}else{
 						alert("用户名或密码错误");
@@ -171,14 +177,14 @@ $(function(){
 		if(usernum == 1 && psw == 1 && pswes == 1){
 			$.ajax({
 				"type":"POST",
-				"url":"php/regSave.php",
+				"url":"regSave.php",
 				"data":{"userphone":$(".reg_phone").val(),
 				"userpass":$(".reg_passw").val()},
 				success: function (data) { //返回json结果
 				alert(data);
 				}
 			})
-			window.location.href="http://127.0.0.1/BOLON/login.html"
+			window.location.href="login.html"
 		}else if($(".reg_passw").val()==""){
 			alert("密码不能为空");
 		}
