@@ -142,7 +142,7 @@ function showList(objs){
 							<h3>RMB ${objs[i].goodsPrice}</h3>
 						</div>
 						<dd class="toggle show" index="0">
-							<a href="goodsDetails.html">
+							<a href="goodsDetails.html?goodsId=${objs[i].goodsId}">
 								<img src="${objs[i].goodsImg}" alt="">
 								<h3>${objs[i].goodsName}</h3>
 								<h3>RMB ${objs[i].goodsPrice}</h3>
