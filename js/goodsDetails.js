@@ -132,6 +132,9 @@ $(function(){
 		
 
 	// });
+
+
+	//点击左右小箭头图片切换
 	let currIndex=$(".diandian a").attr("index");
 	$(".dian_left").click(function(){
 		currIndex--;

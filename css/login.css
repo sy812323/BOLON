@@ -612,6 +612,16 @@ a{
 	outline: none;
 	background: none;
 }
+.yanzhengma{
+	height: 44px;
+	margin-bottom: 25px;
+}
+.reg_phone_word,.reg_passw_word,.reg_passw2_word,.yanzhengma_word{
+	color: red;
+	font-size: 12px;
+	line-height: 12px;
+	height: 12px;
+}
 .mi_input1{
 	width: 64%;
 	float: left;

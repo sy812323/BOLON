@@ -38,6 +38,8 @@ $(function(){
 	});
 	$(".close").click(function(){
 		$(".register").css("display","none");
+		$(".mi_input").val("");
+		$(".reg_phone_word,.reg_passw_word,.reg_passw2_word").html("");
 	});
 	//点击忘记密码提示
 	$(".forgetM").click(function(){
@@ -104,37 +106,43 @@ $(function(){
 	let pswes = 0;
 	//验证用户名是否存在
 	$(".reg_phone").blur(function(){
-		// let reg = /^[a-z0-9_-]{3,16}$/;
-		// let v = $(".reg_phone").val();
-		// if(!reg.test(v)){
-		// 	alert("请输入正确的手机号");
-		// 	usernum = 0;
-		// }else{
+		let reg = /^1\d{10}$/;
+		let v = $(".reg_phone").val();
+		if(!reg.test(v)){
+			// alert("请输入正确的手机号");
+			$(".reg_phone_word").html("请输入正确的手机号");
+			usernum = 0;
+		}else{
 				$.get(
-					"php/checkUser.php",
+					"checkUser.php",
 					{
 						"userphone":$(".reg_phone").val()	
 					},
 					function(data){
 						if(data=="1"){
-							alert("该手机号可以使用");
+							// alert("该手机号可以使用");
+							$(".reg_phone_word").html("该手机号可以使用");
 							usernum = 1;
 						}else{
-							alert("该手机号已注册");
+							// alert("该手机号已注册");
+							$(".reg_phone_word").html("该手机号已注册");
 							usernum = 0;
 							
 						}
 					}				
 				);
-		// }
+		}
 	});
 	$(".reg_passw").blur(function(){
 		let reg = /^[a-z0-9_-]{6,18}$/;
 		let v = $(".reg_passw").val();
+		$(".reg_phone_word").html("");
 		if(!reg.test(v)){
-			alert("密码不符合规定");
+			// alert("密码不符合规定");
+			$(".reg_passw_word").html("密码不符合规定");
 			psw = 0;
 		}else{
+			$(".reg_passw_word").html("");
 			psw = 1;
 		}
 	})
@@ -143,15 +151,20 @@ $(function(){
 		let s = $(".reg_passw2").val();
 		
 		if(v==""){
-			alert("密码不能为空");
+			// alert("密码不能为空");
+			$(".reg_passw2_word").html("密码不能为空");
 			pswes = 0;
+			return;
 		}else if(psw==0){
-			alert("密码格式不对");
+			// alert("密码格式不对");
+			$(".reg_passw2_word").html("密码格式不对");
 		}else if(v!=s){
-			alert("两次输入密码不一致");
+			// alert("两次输入密码不一致");
+			$(".reg_passw2_word").html("两次输入密码不一致");
 			pswes = 0;
 		}else if(v==s){
 			pswes = 1;
+			$(".reg_passw2_word").html("");
 		}
 	})
 	$(".mi_a").click(function(){
