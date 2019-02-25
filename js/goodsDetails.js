@@ -176,7 +176,37 @@ $(function(){
 		uls[currIndex].style.backgroundColor="gray";
 
 	});
+
+	function getUrlParam(name){
+        //构造一个含有目标参数的正则表达式对象
+        var reg = new RegExp("(^|&)"+name+"=([^&]*)(&|$)");
+        //匹配目标函数
+        var r = window.location.search.substr(1).match(reg);
+        // 返回参数
+        if(r!=null) return unescape(r[2]);
+        return null;
+    }
+
+    //接收URL中的参数goodsId
+    var id = getUrlParam('goodsId');
+    console.log(id);
+	function showList(objs){
+		console.log(objs);
+	    $(".xq_right_tit h3").html(`${objs.goodsName}`);
+	    $(".list_img dd img").attr("src",`${objs.goodsImg}`);
+	    $(".jingpian p").html(`${objs.goodsDesc}`);
+	    $(".right_list li img").attr("src",`${objs.goodsImg}`);
+	    $(".rmb span").html(`${objs.goodsPrice}`);
+	    $(".xq_xx2_pian").html(`${objs.goodsDesc}`);
+	}    
+	$(function(){
+   		$.get("getGoodsInfo.php",{"goodsId":id},showList,"json");    
+       
+	})
+
 })
+
+
 
 
 

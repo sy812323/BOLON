@@ -185,6 +185,12 @@ function showList(objs){
 }    
 
 $(function(){
-    $.get("getGoodsList.php",showList,"json");    
-       
+    $.get("getGoodsList.php",showList,"json"); 
+ //    $(".yan_list a").click(function(){
+	// 	var id = $(this).attr("proid");
+	// 	window.localStorage.proid=id;
+	// 	console.log(id);
+	// 	location.href="goodsDetails.html";
+	// })
+   
 })
